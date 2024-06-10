@@ -2,12 +2,9 @@ import { CategoryList } from "@/components/category/category-list";
 import { ProductList } from "@/components/product/product-list";
 import { Skeleton } from "@/components/skeleton";
 import { Slider } from "@/components/slider";
-import { wixClientServer } from "@/lib/wix-client-server";
 import { Suspense } from "react";
 
 export default async function Home() {
-  const wixClient = await wixClientServer();
-
   return (
     <section>
       <Slider />
@@ -17,6 +14,7 @@ export default async function Home() {
           <ProductList
             categoryId={process.env.FEATURED_PRODUCT_CATEGORY_ID}
             limit={4}
+            isPaginationDisplay={false}
           />
         </Suspense>
       </div>

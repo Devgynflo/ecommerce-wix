@@ -1,5 +1,6 @@
 "use client";
 
+import { useWixClient } from "@/hooks/use-wix-client";
 import cartImg from "@@/public/cart.png";
 import notificationImg from "@@/public/notification.png";
 import profileImg from "@@/public/profile.png";
@@ -27,6 +28,17 @@ export const NavIcons: NextPage<NavIconsProps> = ({}) => {
     setIsProfileOpen((prev) => !prev);
   }
 
+  //AUTH WITH WIX-MANAGED AUTH
+  const wixClient = useWixClient();
+  const login = async () => {
+    const loginRequestData = wixClient.auth.generateOAuthData(
+      process.env.NEXT_PUBLIC_WIX_CLIENT_REDIRECT_URL!,
+    );
+    localStorage.setItem("oAuthRedirectData", JSON.stringify(loginRequestData));
+    const { authUrl } = await wixClient.auth.getAuthUrl(loginRequestData);
+    window.location.href = authUrl;
+  };
+
   return (
     <div className="relative flex items-center gap-4 xl:gap-6">
       <Image
@@ -35,7 +47,8 @@ export const NavIcons: NextPage<NavIconsProps> = ({}) => {
         width={22}
         height={22}
         className="cursor-pointer"
-        onClick={handleProfile}
+        //onClick={handleProfile}
+        onClick={login}
       />
       {isProfileOpen && (
         <div className="absolute left-0 top-12 z-20 flex flex-col gap-3 rounded-md p-4 text-sm shadow-xl">

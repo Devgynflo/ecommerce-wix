@@ -46,22 +46,6 @@ export const Filter: NextPage<FilterProps> = ({}) => {
           className="w-24 rounded-2xl pl-2 text-xs ring-1 ring-gray-400"
           onChange={handleFilterChange}
         />
-        {/* <select
-          name="size"
-          id=""
-          className="rounded-2xl bg-[#EBEDED] px-4 py-2 text-xs font-medium"
-        >
-          <option>Size</option>
-          <option value="">Size</option>
-        </select>
-        <select
-          name="color"
-          id=""
-          className="rounded-2xl bg-[#EBEDED] px-4 py-2 text-xs font-medium"
-        >
-          <option>Color</option>
-          <option value="">Test</option>
-        </select> */}
         <select
           name="cat"
           id=""
@@ -83,12 +67,12 @@ export const Filter: NextPage<FilterProps> = ({}) => {
       </div>
       <div className="">
         <select
-          onChange={handleFilterChange}
           name="sort"
           id=""
           className="rounded-2xl bg-white px-4 py-2 text-xs font-medium ring-1 ring-gray-400"
+          onChange={handleFilterChange}
         >
-          <option>Sort by</option>
+          <option>Sort By</option>
           <option value="asc price">Price (low to high)</option>
           <option value="desc price">Price (high to low)</option>
           <option value="asc lastUpdated">Newest</option>

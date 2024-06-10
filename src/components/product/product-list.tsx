@@ -9,6 +9,7 @@ interface ProductListProps {
   categoryId?: string;
   limit?: number;
   searchParams?: any;
+  isPaginationDisplay?: boolean;
 }
 
 const PRODUCT_PER_PAGE = 8;
@@ -17,6 +18,7 @@ export const ProductList: NextPage<ProductListProps> = async ({
   categoryId,
   limit,
   searchParams,
+  isPaginationDisplay = true,
 }) => {
   const wixClient = await wixClientServer();
 
@@ -78,8 +80,7 @@ export const ProductList: NextPage<ProductListProps> = async ({
             <div className="flex justify-between">
               <span className="font-medium">{article.name}</span>
               <span className="flex items-center gap-1 font-semibold">
-                <span className="">{article.price?.price}</span>
-                <span className="text-xs">{article.price?.currency}</span>
+                <span className="">{article.price?.formatted?.price}</span>
               </span>
             </div>
             <div
@@ -100,11 +101,13 @@ export const ProductList: NextPage<ProductListProps> = async ({
           </Link>
         </article>
       ))}
-      <Pagination
-        currentPage={res.currentPage || 0}
-        hasPrev={res.hasPrev()}
-        hasNext={res.hasNext()}
-      />
+      {isPaginationDisplay && (
+        <Pagination
+          currentPage={res.currentPage || 0}
+          hasPrev={res.hasPrev()}
+          hasNext={res.hasNext()}
+        />
+      )}
     </section>
   );
 };
